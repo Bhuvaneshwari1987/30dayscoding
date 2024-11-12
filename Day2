@@ -1,0 +1,66 @@
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+Example 1:
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+Example 2:
+
+Input: s = "race a car"
+Output: false
+Explanation: "raceacar" is not a palindrome.
+Example 3:
+
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
+
+
+OUTPUT:-
+#include <iostream>
+#include <cctype>  // for isalnum() and tolower()
+
+bool isPalindrome(std::string s) {
+    int left = 0, right = s.size() - 1;
+    
+    while (left < right) {
+        // Skip non-alphanumeric characters by moving the left pointer
+        while (left < right && !std::isalnum(s[left])) {
+            left++;
+        }
+        
+        // Skip non-alphanumeric characters by moving the right pointer
+        while (left < right && !std::isalnum(s[right])) {
+            right--;
+        }
+        
+        // Compare the characters in a case-insensitive manner
+        if (std::tolower(s[left]) != std::tolower(s[right])) {
+            return false;
+        }
+        
+        left++;
+        right--;
+    }
+    
+    return true;
+}
+
+int main() {
+    // Example 1
+    std::string s1 = "A man, a plan, a canal: Panama";
+    std::cout << (isPalindrome(s1) ? "true" : "false") << std::endl;  // Output: true
+    
+    // Example 2
+    std::string s2 = "race a car";
+    std::cout << (isPalindrome(s2) ? "true" : "false") << std::endl;  // Output: false
+    
+    // Example 3
+    std::string s3 = " ";
+    std::cout << (isPalindrome(s3) ? "true" : "false") << std::endl;  // Output: true
+
+    return 0;
+}
